@@ -1,0 +1,26 @@
+<form action="/product/add" method="post">
+   <h1>Add new product</h1>
+   Product name: <input type="text" name="productname" id="" required>
+   <br><br>
+   Product description: <input type="text" name="description" id="" required>
+   <br><br>
+   Product image: <input type="url" name="image" id="" required>
+   <br><br>
+   Product price: <input type="text" name="price" id="" required>
+   <br><br>
+   Product brand: <br>
+   <select name="brand">
+      {{#each brands }}
+      <option value="{{ _id }}"> {{ brandname }}</option>
+      {{/each}}
+   </select>
+   <br><br>
+   Product category: <br>
+   <select name="category">
+      {{#each categories }}
+      <option value="{{ _id }}"> {{ categoryname }}</option>
+      {{/each}}
+   </select>
+   <br><br>
+   <input type="submit" value="Add">
+</form>

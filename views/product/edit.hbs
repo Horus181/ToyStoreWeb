@@ -1,0 +1,25 @@
+<form action="/product/edit/{{ product._id }}" method="post">
+   <h1>Edit product</h1>
+   Product name: <input type="text" name="productname" id="" required value="{{ product.productname }}">
+   <br><br>
+   Product image: <input type="url" name="image" id="" required value="{{ product.image }}">
+   <img src="{{ product.image }}" alt="" width="100" height="100">
+   <br><br>
+   Mobile price: <input type="text" name="price" id="" required value="{{ product.price }}">
+   <br><br>
+   Mobile brand: <br>
+   <select name="brand">
+      {{#each brands }}
+      <option value="{{ _id }}" {{#if this.brandId}} selected {{/if}}>{{ brandname }}</option>
+      {{/each}}
+   </select>
+   <br><br>
+   Mobile category: <br>
+   <select name="category">
+      {{#each categories }}
+      <option value="{{ _id }}" {{#if this.categoryId}} selected {{/if}}>{{ categoryname }}</option>
+      {{/each}}
+   </select>
+   <br><br>
+   <input type="submit" value="Edit">
+</form>

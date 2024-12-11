@@ -1,0 +1,24 @@
+<a class="btn btn-info" href="/product/add">Add new product</a>
+<br><br>
+<table class="table table-bordered">
+   <tr>
+      <th>Product Name</th>
+      <th>Product Description</th>
+      <th>Product Price</th>
+      <th>Product Brand</th>
+      <th>Product Category</th>
+      <th>Product image</th>
+   </tr>
+   {{#each products }}
+   <tr>
+      <td>{{ productname }}</td>
+      <td>{{ description }}</td>
+      <td>{{ price }}</td>
+      <td>{{ brand.brandname }}</td>
+      <td>{{ category.categoryname }}</td>
+      <td>
+         <img src="{{ image }}" alt="" width="100" height="120">
+      </td>
+   </tr>
+   {{/each}}
+</table>

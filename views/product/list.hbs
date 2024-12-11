@@ -1,0 +1,29 @@
+<div action="/product/list" class="container mt-3" style="text-align:center">
+  <br>
+  <br>
+  <br>
+  <br>
+<div class="container-fluid py-5">
+      
+        <div class="container">
+            <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h1 style="text-align: center;"  class="text-primary mb-3"><span class="fw-light text-dark"></span> Toy Product</h1>
+            </div>
+
+            <div class="row g-4">
+                {{#each products}}
+                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
+                    <div class="product-item text-center border h-100 p-4">
+                        <img class="img-fluid mb-4" src="{{image}}" alt="">
+                        <a href="/product/{{_id}}" class="h6 d-inline-block mb-2">Name: {{productname}}</a>
+                        {{!-- <h5 class="text-primary mb-3">{{brands}}</h5> --}}
+                        <h5 class="text-primary mb-3">Price: {{price}} $</h5>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>   
+</div>
+
+

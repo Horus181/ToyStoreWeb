@@ -1,0 +1,8 @@
+<form action="/category/edit/{{ category._id }}" method="post">
+   <h1>Edit category</h1>
+   Category name: <input type="text" name="categoryname" value="{{ category.categoryname }}" required>
+   <br><br>
+   Category description: <input type="text" name="description" id="" value="{{ category.description }}" required>
+   <br><br>
+   <input type="submit" value="Edit">
+</form>
