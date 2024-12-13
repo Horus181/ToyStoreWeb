@@ -227,3 +227,88 @@
     width: 100%; /* Full width button for small screens */
   }
 }
+
+/* General Form Container */
+form {
+  background-color: #f8f9fa; /* Light gray background */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding inside the form */
+  max-width: 500px; /* Set maximum width */
+  margin: 20px auto; /* Center align the form */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+/* Form Title */
+form h1 {
+  text-align: center; /* Center align */
+  font-size: 24px; /* Larger text */
+  font-weight: bold; /* Bold text */
+  margin-bottom: 20px; /* Space below the title */
+  color: #343a40; /* Dark gray color */
+}
+
+/* Labels */
+form label {
+  display: block; /* Block display for labels */
+  margin-bottom: 8px; /* Spacing below labels */
+  font-weight: bold; /* Bold labels */
+  color: #495057; /* Subtle dark color */
+}
+
+/* Input Fields */
+form input[type="text"],
+form input[type="number"],
+form select {
+  width: 100%; /* Full width */
+  padding: 10px; /* Inner padding */
+  margin-bottom: 15px; /* Space below each field */
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 6px; /* Rounded corners */
+  font-size: 14px; /* Font size */
+  box-sizing: border-box; /* Ensure proper box model */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+/* Focus State */
+form input:focus,
+form select:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5); /* Subtle blue shadow */
+  outline: none; /* Remove outline */
+}
+
+/* Submit Button */
+form button[type="submit"] {
+  background-color: #007bff; /* Blue background */
+  color: #fff; /* White text */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding */
+  border-radius: 6px; /* Rounded corners */
+  font-size: 16px; /* Larger text */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  display: block; /* Block-level element */
+  margin: 0 auto; /* Center align */
+}
+
+/* Submit Button Hover */
+form button[type="submit"]:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  form {
+    padding: 15px; /* Reduce padding on smaller screens */
+  }
+
+  form h1 {
+    font-size: 20px; /* Smaller title font size */
+  }
+
+  form button[type="submit"] {
+    font-size: 14px; /* Smaller button font size */
+  }
+}
