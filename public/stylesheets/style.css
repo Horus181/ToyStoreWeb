@@ -1,4 +1,4 @@
-/* Container chính */
+/* General Container */
 .main-content {
   padding: 20px;
   background-color: #f8f9fa;
@@ -7,7 +7,7 @@
   margin: 20px auto;
 }
 
-/* Tiêu đề và nút "Add New Product" */
+/* Header Section */
 .table-header {
   display: flex;
   justify-content: space-between;
@@ -20,7 +20,7 @@
 }
 
 .table-header h2 {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   margin: 0;
 }
@@ -48,7 +48,56 @@
   background-color: #218838;
 }
 
-/* Bảng dữ liệu */
+/* Search Bar Section */
+.search-bar {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.search-bar .row {
+  display: flex;
+  gap: 15px; /* Space between columns */
+  flex-wrap: wrap; /* Responsive wrapping for smaller screens */
+  justify-content: space-between; /* Ensure proper alignment */
+}
+
+.search-bar .form-control,
+.search-bar .form-select {
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; /* Ensure proper box model */
+}
+
+.search-bar .btn {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.search-bar .btn i {
+  font-size: 18px;
+}
+
+.search-bar .btn:hover {
+  background-color: #0056b3;
+}
+
+/* Table Section */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -58,7 +107,8 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.table th, .table td {
+.table th,
+.table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -80,7 +130,7 @@
   object-fit: cover;
 }
 
-/* Checkbox */
+/* Custom Checkbox */
 .custom-checkbox input[type="checkbox"] {
   display: none;
 }
@@ -113,7 +163,7 @@
   transform: rotate(45deg);
 }
 
-/* Actions */
+/* Action Icons */
 .action-icons {
   display: flex;
   gap: 10px;
@@ -130,7 +180,7 @@
   color: #0056b3;
 }
 
-/* Phân trang */
+/* Pagination */
 .table-footer {
   display: flex;
   justify-content: space-between;
@@ -165,4 +215,15 @@
 .pagination .active a {
   background-color: #007bff;
   color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-bar .row {
+    flex-direction: column; /* Stack inputs on small screens */
+  }
+
+  .search-bar .btn {
+    width: 100%; /* Full width button for small screens */
+  }
 }

@@ -1,5 +1,5 @@
 <form action="/product/add" method="post">
-   <h1>Add new product</h1>
+   <h1>ADD NEW PRODUCT</h1>
    Product name: <input type="text" name="productname" id="" required>
    <br><br>
    Product description: <input type="text" name="description" id="" required>
@@ -22,5 +22,7 @@
       {{/each}}
    </select>
    <br><br>
-   <input type="submit" value="Add">
+    <div class="modal-footer">
+               <button type="submit" class="btn btn-success">Add</button>
+            </div>
 </form>
