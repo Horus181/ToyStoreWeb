@@ -1,8 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 const ProductModel = require('../models/ProductModel');
 const CategoryModel = require('../models/CategoryModel');
 const BrandModel = require('../models/BrandModel');
+
+// Cấu hình Multer
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './public/uploads'); // Thư mục lưu file upload
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Đặt tên file theo thời gian
+    }
+});
+const upload = multer({ storage: storage });
 
 // Route hiển thị trang index sản phẩm với tìm kiếm
 router.get('/', async (req, res) => {
@@ -10,13 +23,13 @@ router.get('/', async (req, res) => {
 
     let searchConditions = {};
     if (productname) {
-        searchConditions.productname = { $regex: productname, $options: 'i' }; // Tìm kiếm không phân biệt hoa thường
+        searchConditions.productname = { $regex: productname, $options: 'i' };
     }
     if (brand) {
-        searchConditions.brand = brand; // Tìm theo brand ID
+        searchConditions.brand = brand;
     }
     if (category) {
-        searchConditions.category = category; // Tìm theo category ID
+        searchConditions.category = category;
     }
 
     try {
@@ -26,17 +39,6 @@ router.get('/', async (req, res) => {
         const categories = await CategoryModel.find();
         const brands = await BrandModel.find();
         res.render('product/index', { products, categories, brands, search: req.query });
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-// Route hiển thị danh sách sản phẩm (không tìm kiếm)
-router.get('/list', async (req, res) => {
-    try {
-        const products = await ProductModel.find().populate('brand').populate('category');
-        res.render('product/list', { products });
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).send('Internal Server Error');
@@ -56,24 +58,27 @@ router.get('/add', async (req, res) => {
 });
 
 // Route thêm sản phẩm
-router.post('/add', async (req, res) => {
+router.post('/add', upload.single('image'), async (req, res) => {
     try {
-        const product = req.body;
-        await ProductModel.create(product);
+        const { productname, description, price, brand, category } = req.body;
+
+        if (!productname || !price || !brand || !category) {
+            return res.status(400).send('All fields are required.');
+        }
+
+        const newProduct = {
+            productname: productname,
+            description: description,
+            price: price,
+            brand: brand,
+            category: category,
+            image: req.file ? `/uploads/${req.file.filename}` : '/images/default-product.png'
+        };
+
+        await ProductModel.create(newProduct);
         res.redirect('/product');
     } catch (error) {
         console.error('Error adding product:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-// Route xóa sản phẩm
-router.get('/delete/:id', async (req, res) => {
-    try {
-        await ProductModel.findByIdAndDelete(req.params.id);
-        res.redirect('/product');
-    } catch (error) {
-        console.error('Error deleting product:', error);
         res.status(500).send('Internal Server Error');
     }
 });
@@ -91,11 +96,25 @@ router.get('/edit/:id', async (req, res) => {
     }
 });
 
-// Route chỉnh sửa sản phẩm
-router.post('/edit/:id', async (req, res) => {
+router.post('/edit/:id', upload.single('image'), async (req, res) => {
     try {
-        const product = req.body;
-        await ProductModel.findByIdAndUpdate(req.params.id, product);
+        const { productname, description, price, brand, category } = req.body;
+
+        const updatedProduct = {
+            productname: productname,
+            description: description,
+            price: price,
+            brand: brand,
+            category: category,
+        };
+
+        // Kiểm tra nếu có file upload
+        if (req.file) {
+            updatedProduct.image = `/uploads/${req.file.filename}`; // Cập nhật đường dẫn file ảnh mới
+        }
+
+        // Cập nhật sản phẩm trong database
+        await ProductModel.findByIdAndUpdate(req.params.id, updatedProduct);
         res.redirect('/product');
     } catch (error) {
         console.error('Error editing product:', error);
@@ -103,24 +122,13 @@ router.post('/edit/:id', async (req, res) => {
     }
 });
 
-// Route sắp xếp sản phẩm tăng dần
-router.get('/sort/asc', async (req, res) => {
+// Route xóa sản phẩm
+router.get('/delete/:id', async (req, res) => {
     try {
-        const products = await ProductModel.find().populate('brand').sort({ productname: 1 });
-        res.render('product/index', { products });
+        await ProductModel.findByIdAndDelete(req.params.id);
+        res.redirect('/product');
     } catch (error) {
-        console.error('Error sorting products:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-// Route sắp xếp sản phẩm giảm dần
-router.get('/sort/desc', async (req, res) => {
-    try {
-        const products = await ProductModel.find().populate('brand').sort({ productname: -1 });
-        res.render('product/index', { products });
-    } catch (error) {
-        console.error('Error sorting products:', error);
+        console.error('Error deleting product:', error);
         res.status(500).send('Internal Server Error');
     }
 });

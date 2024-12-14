@@ -1,27 +1,43 @@
-<form action="/product/edit/{{ product._id }}" method="post">
-   <h1>Edit product</h1>
-   Product name: <input type="text" name="productname" id="" required value="{{ product.productname }}">
-   <br><br>
-   Product image: <input type="url" name="image" id="" required value="{{ product.image }}">
-   <img src="{{ product.image }}" alt="" width="100" height="100">
-   <br><br>
-   Mobile price: <input type="text" name="price" id="" required value="{{ product.price }}">
-   <br><br>
-   Mobile brand: <br>
-   <select name="brand">
-      {{#each brands }}
-      <option value="{{ _id }}" {{#if this.brandId}} selected {{/if}}>{{ brandname }}</option>
-      {{/each}}
-   </select>
-   <br><br>
-   Mobile category: <br>
-   <select name="category">
-      {{#each categories }}
-      <option value="{{ _id }}" {{#if this.categoryId}} selected {{/if}}>{{ categoryname }}</option>
-      {{/each}}
-   </select>
-   <br><br>
-     <div class="modal-footer">
-               <button type="submit" class="btn btn-success">Edit</button>
-            </div>
+<form action="/product/edit/{{ product._id }}" method="post" enctype="multipart/form-data">
+    <h1>Edit Product</h1>
+    
+    <!-- Tên sản phẩm -->
+    <label for="productname">Product Name:</label>
+    <input type="text" name="productname" id="productname" required value="{{ product.productname }}">
+    <br><br>
+    
+    <!-- Hình ảnh sản phẩm -->
+    <label for="image">Product Image:</label>
+    <input type="file" name="image" id="image">
+    <br>
+    <img src="{{ product.image }}" alt="Current Image" width="100" height="100">
+    <br><br>
+    
+    <!-- Giá sản phẩm -->
+    <label for="price">Product Price:</label>
+    <input type="text" name="price" id="price" required value="{{ product.price }}">
+    <br><br>
+    
+    <!-- Thương hiệu -->
+    <label for="brand">Mobile Brand:</label>
+    <select name="brand" id="brand">
+        {{#each brands}}
+        <option value="{{ _id }}" {{#ifEquals _id ../product.brand}}selected{{/ifEquals}}>{{ brandname }}</option>
+        {{/each}}
+    </select>
+    <br><br>
+    
+    <!-- Danh mục -->
+    <label for="category">Mobile Category:</label>
+    <select name="category" id="category">
+        {{#each categories}}
+        <option value="{{ _id }}" {{#ifEquals _id ../product.category}}selected{{/ifEquals}}>{{ categoryname }}</option>
+        {{/each}}
+    </select>
+    <br><br>
+    
+    <!-- Nút submit -->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Edit</button>
+    </div>
 </form>
