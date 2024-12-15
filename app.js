@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
+
 // Khởi tạo ứng dụng Express
 const app = express();
 
@@ -48,8 +49,8 @@ app.use((req, res) => {
     res.status(404).render('error', { title: '404 - Page Not Found' });
 });
 
-// Lắng nghe trên cổng 3000
-const PORT = 3000;
+// Lắng nghe trên cổng từ biến môi trường hoặc cổng 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
