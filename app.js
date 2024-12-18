@@ -8,10 +8,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // Kết nối MongoDB
-mongoose.connect('mongodb+srv://KinStore:admin@kinstore.dw2ms.mongodb.net/ToyStore', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect('mongodb+srv://KinStore:180103@kinstore.dw2ms.mongodb.net/ToyStore')
+
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('Failed to connect to MongoDB:', err));
 
